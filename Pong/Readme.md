@@ -5,8 +5,8 @@ This could evolve into it's own game of Ye Ole Pong where everything looks like 
 ## Tasks
 [x] Paddles that can move for each player
 [x] Walls that contain the game boundaries
-[] A ball that bounces around the game area
-[] Walls and paddles exert force on the ball
+[X] A ball that bounces around the game area
+[X] Walls and paddles exert force on the ball
 [] Score keeping
 [] Start menu with options
 [] AI if no player 2

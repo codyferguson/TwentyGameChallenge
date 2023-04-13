@@ -2,36 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Paddle
 {
     [SerializeField] GameObject player;
-    [SerializeField] int speed = 100;
+    
+    private Vector2 _direction;
+    private KeyCode upKey;
+    private KeyCode downKey;
 
-    Vector2 movement;
+    private void Awake() {
+        // Why do I need to do this hack?
+        if (_rigidBody == null) _rigidBody = GetComponent<Rigidbody2D>();
+        bool isPlayerOne = player.name == "Player 1";
+        upKey = isPlayerOne ? KeyCode.W : KeyCode.UpArrow;
+        downKey = isPlayerOne ? KeyCode.S : KeyCode.DownArrow;
+    }
+
+    private void Update() {
+        // Get direction works for either player
+        if (Input.GetKey(upKey)) {
+            _direction = Vector2.up;
+        } else if (Input.GetKey(downKey)) {
+            _direction = Vector2.down;
+        } else {
+            _direction = Vector2.zero;
+        }
+    }
 
     private void FixedUpdate() {
         Move();
     }
 
     private void Move() {
-        if(player.name == "Player 1") {
-            if (Input.GetKey(KeyCode.W)) {
-                player.transform.Translate(Vector2.up * speed * Time.deltaTime);
-            }
-
-            if (Input.GetKey(KeyCode.S)) {
-                player.transform.Translate(Vector2.down* speed * Time.deltaTime);
-            }
-        }
-
-        if (player.name == "Player 2") {
-            if (Input.GetKey(KeyCode.UpArrow)) {
-                player.transform.Translate(Vector2.up * speed * Time.deltaTime);
-            }
-
-            if (Input.GetKey(KeyCode.DownArrow)) {
-                player.transform.Translate(Vector2.down * speed * Time.deltaTime);
-            }
+        if(_direction.sqrMagnitude != 0) {
+            _rigidBody.AddForce(_direction * speed);
         }
     }
 }
