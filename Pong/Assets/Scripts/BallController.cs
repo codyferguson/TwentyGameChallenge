@@ -15,9 +15,9 @@ public class BallController : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
+        // Used later for serving the ball
         inMotion = false;
         ResetBall();
     }
@@ -28,30 +28,12 @@ public class BallController : MonoBehaviour
         // Avoid 0 value so as to not travel Horizontal
         direction.y = Random.value < 0.5f ? Random.Range(-1.0f, -0.5f) :
                                         Random.Range(0.5f, 1.0f);
+
+        print($"X: {direction.x} Y: {direction.y}");
         rigidBody.AddForce(direction * speed);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.CompareTag("Boundary")) {
-            
-            if (collision.gameObject.name == "Left Boundary") {
-                print("player 2 score!");
-                ResetBall();
-                // Add score to player 2
-                // Reset ball to be served player 1
-                
-            } else if (collision.gameObject.name == "Right Boundary") {
-                print("player 1 score!");
-                gameObject.SetActive(false);
-                ResetBall();
-                // Add score to player 1
-                // Reset ball to be served by player 2
-            }
-        }
-    }
-
     public void ResetBall() {
-        //gameObject.SetActive(false);
         rigidBody.position = Vector3.zero;
         rigidBody.velocity = Vector3.zero;
 
