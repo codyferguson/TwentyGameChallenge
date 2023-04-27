@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
@@ -14,5 +15,16 @@ public class MainMenu : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void PlayGame() {
+        //SceneManager.LoadScene("Main");
+        // gets the next scene in the queue. from build options
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void QuitGame() {
+        Debug.Log("Quiting Game...");
+        Application.Quit();
     }
 }
