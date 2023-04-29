@@ -7,9 +7,11 @@ This could evolve into it's own game of Ye Ole Pong where everything looks like 
 [x] Walls that contain the game boundaries
 [X] A ball that bounces around the game area
 [X] Walls and paddles exert force on the ball
-[] Score keeping
-[] Start menu with options
+[X] Score keeping
+[X] Start menu with options
 [] AI if no player 2
+[] Timer for delayed start
+[] Restart game or exit menu after done
 
 
 ## Postmortem

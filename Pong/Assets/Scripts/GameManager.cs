@@ -8,9 +8,21 @@ public class GameManager : MonoBehaviour
     public BallController ball;
     public TMP_Text playerOneText;
     public TMP_Text playerTwoText;
+    public static GameManager instance = null; //Static instance of GameManager which allows it to be accessed by any other script.
 
     private int _playerOneScore;
     private int _playerTwoScore;
+
+    public void Awake() {
+        //Check if instance already exists
+        if (instance == null)
+            instance = this;
+
+        else if (instance != this)
+            Destroy(gameObject);
+
+        DontDestroyOnLoad(gameObject);
+    }
 
     public void PlayerOneScores() {
         _playerOneScore++;
