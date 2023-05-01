@@ -11,5 +11,7 @@ public class Loader : MonoBehaviour
     public void Awake() {
         if (GameManager.instance == null)
             Instantiate(gameManager);
+        if (SoundManager.instance == null)
+            Instantiate(gameManager);
     }
 }
