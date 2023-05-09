@@ -9,8 +9,9 @@ This could evolve into it's own game of Ye Ole Pong where everything looks like 
 [X] Walls and paddles exert force on the ball
 [X] Score keeping
 [X] Start menu with options
-[] AI if no player 2
-[] Timer for delayed start
+[X] AI if no player 2
+[X] Timer for delayed start
+[] Ball bounce speed increase
 [] Restart game or exit menu after done
 
 

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class BallController : MonoBehaviour
@@ -5,6 +6,7 @@ public class BallController : MonoBehaviour
     [SerializeField] float speed = 100f;
     [SerializeField] GameObject player1;
     [SerializeField] GameObject player2;
+    [SerializeField] int resetWaitSeconds = 1;
     
 
     Rigidbody2D rigidBody;
@@ -19,7 +21,28 @@ public class BallController : MonoBehaviour
     {
         // Used later for serving the ball
         inMotion = false;
-        ResetBall();
+        StartCoroutine(ResetBall());
+    }
+
+    public IEnumerator ResetBall() {
+        rigidBody.position = Vector3.zero;
+        rigidBody.velocity = Vector3.zero;
+
+        yield return new WaitForSeconds(resetWaitSeconds);
+
+        // TODO: Set ball to be served by server instead
+        AddStartingForce();
+    }
+
+    public void Update() {
+        if (Input.GetMouseButtonDown(0)) {
+            inMotion = true;
+            //movement = Camera.main.ScreenToWorldPoint(Input.mousePosition); -- use for launching ball
+        }
+    }
+
+    public void AddForce(Vector2 force) {
+        rigidBody.AddForce(force);
     }
 
     private void AddStartingForce() {
@@ -31,20 +54,5 @@ public class BallController : MonoBehaviour
 
         print($"X: {direction.x} Y: {direction.y}");
         rigidBody.AddForce(direction * speed);
-    }
-
-    public void ResetBall() {
-        rigidBody.position = Vector3.zero;
-        rigidBody.velocity = Vector3.zero;
-
-        // TODO: Set ball to be served by server instead
-        AddStartingForce();
-    }
-
-    private void Update() {
-        if (Input.GetMouseButtonDown(0)) {
-            inMotion = true;
-            //movement = Camera.main.ScreenToWorldPoint(Input.mousePosition); -- use for launching ball
-        }
     }
 }
