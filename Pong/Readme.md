@@ -11,8 +11,8 @@ This could evolve into it's own game of Ye Ole Pong where everything looks like 
 [X] Start menu with options
 [X] AI if no player 2
 [X] Timer for delayed start
-[] Ball bounce speed increase
-[] Restart game or exit menu after done
+[x] Ball bounce speed increase
+[X] Restart game or exit menu after done
 
 
 ## Postmortem

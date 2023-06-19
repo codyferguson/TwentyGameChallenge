@@ -52,7 +52,6 @@ public class BallController : MonoBehaviour
         direction.y = Random.value < 0.5f ? Random.Range(-1.0f, -0.5f) :
                                         Random.Range(0.5f, 1.0f);
 
-        print($"X: {direction.x} Y: {direction.y}");
         rigidBody.AddForce(direction * speed);
     }
 }
