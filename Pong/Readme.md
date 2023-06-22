@@ -13,6 +13,11 @@ This could evolve into it's own game of Ye Ole Pong where everything looks like 
 [X] Timer for delayed start
 [x] Ball bounce speed increase
 [X] Restart game or exit menu after done
+[] Main menu sound effects
+[] Game sound effects
 
 
 ## Postmortem
+This took way longer than I had hoped. The main concept was done fairly early but I had to refer to a tutorial unfortunately. Next time, only use the docs and google to struggle through making this work.
+
+Pretty straight forward project and it was fun to do. For an enhancement project, I would really like to build out power ups and some other features to practice adding to an existing game design.
