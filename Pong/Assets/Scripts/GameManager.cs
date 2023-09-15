@@ -26,24 +26,26 @@ public class GameManager : MonoBehaviour {
     private BallController _ballController;
 
     //For menu scene
-    public TMP_Dropdown playerOneDropdown;
-    public TMP_Dropdown playerTwoDropdown;
     public GameObject playerOne;
     public GameObject playerTwo;
 
-    private Controllers playerOneControl = Controllers.HUMAN;
-    private Controllers playerTwoControl = Controllers.CPU;
+    public Controllers playerOneControl;
+    public Controllers playerTwoControl;
     private static int POINTS_FOR_WIN = 3;
-
-
 
     public void Awake() {
         //Check if instance already exists
-        if (instance == null)
+        if (instance == null) {
+            Debug.Log($"Instance is null.");
             instance = this;
+        }
+            
 
-        else if (instance != this)
+        else if (instance != this) {
+            Debug.Log($"Destroying instance {instance}");
             Destroy(gameObject);
+        }
+            
         
         DontDestroyOnLoad(gameObject);
     }
@@ -56,18 +58,17 @@ public class GameManager : MonoBehaviour {
         //Left here to play from Unity
         endGameUI = endGameUI ? endGameUI : GameObject.Find("EndGameText");
         if (endGameUI != null) endGameUI.SetActive(false);
+        SceneManager.sceneLoaded += OnLevelFinishedLoading;
     }
 
-    // Wired up to dropdown in menu. Triggers on value change
-    public void SetPlayerOneController() {
-        playerOneControl = playerOneDropdown.value == ((int)Controllers.HUMAN) ? Controllers.HUMAN : Controllers.CPU;
-        print($"Player one is {playerOneDropdown.value}");
+    public void SetPlayerOneController(int controller) {
+        playerOneControl = controller == ((int)Controllers.HUMAN) ? Controllers.HUMAN : Controllers.CPU;
+        Debug.Log($"Setting player one  to {playerOneControl}");
     }
 
-    // Wired up to dropdown in menu. Triggers on value change
-    public void SetPlayerTwoController() {
-        playerTwoControl = playerTwoDropdown.value == ((int)Controllers.HUMAN) ? Controllers.HUMAN : Controllers.CPU;
-        print($"Player two is {playerTwoDropdown.value}");
+    public void SetPlayerTwoController(int controller) {
+        playerTwoControl = controller == ((int)Controllers.HUMAN) ? Controllers.HUMAN : Controllers.CPU;
+        Debug.Log($"Setting player two  to {playerTwoControl}");
     }
 
     // Triggered by event set in Unity UI
@@ -81,6 +82,28 @@ public class GameManager : MonoBehaviour {
         _playerTwoScore++;
         AfterScoring();
     }
+    
+    public void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode) {
+        Debug.Log($"scene loaded is {scene.name}");
+
+        if (scene.name == "Main Scene") {
+            ball = GameObject.Find("Ball");
+
+            _ballController = ball.GetComponent<BallController>();
+            // fetch text of UI - for some reason null by the time of scoring...
+            playerOneText = GameObject.Find("PlayerOneScore").GetComponent<TMP_Text>();
+            playerTwoText = GameObject.Find("PlayerTwoScore").GetComponent<TextMeshProUGUI>();
+            _playerOneScore = 0;
+            _playerTwoScore = 0;
+            endGameUI = endGameUI ? endGameUI : GameObject.Find("EndGameText");
+            if (endGameUI != null) endGameUI.SetActive(false);
+
+            playerOne = GameObject.Find("Player 1");
+            SetController(playerOne, playerOneControl);
+            playerTwo = GameObject.Find("Player 2");
+            SetController(playerTwo, playerTwoControl);
+        }
+    }
 
     private void AfterScoring() {
         // Check end game
@@ -92,7 +115,7 @@ public class GameManager : MonoBehaviour {
         playerTwoText = playerTwoText ? playerTwoText : GameObject.Find("PlayerTwoScore").GetComponent<TMP_Text>();
         playerTwoText.text = _playerTwoScore.ToString();
 
-        print($"P1 score: {_playerOneScore} P2 score: {_playerTwoScore}");
+        Debug.Log($"P1 score: {_playerOneScore} P2 score: {_playerTwoScore}");
         if (playerOneWins || playerTwoWins) {
             string displayWinner = playerOneWins ? "Player One" : "Player Two";
             StartCoroutine(EndGame(displayWinner));
@@ -112,38 +135,15 @@ public class GameManager : MonoBehaviour {
         winnerText.text = $"{winner} wins!";
         _playerOneScore = 0;
         _playerTwoScore = 0;
-        
+
         yield return new WaitForSeconds(1);
 
         // leave to main menu if it is previous scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
-    public void OnLevelWasLoaded(int level) {
-        // don't check level. Just know this game only has one level
-        if (level == 1) {
-            print($"level is {level}");
-            ball = GameObject.Find("Ball");
-
-            _ballController = ball.GetComponent<BallController>();
-            // fetch text of UI - for some reason null by the time of scoring...
-            playerOneText = GameObject.Find("PlayerOneScore").GetComponent<TMP_Text>();
-            playerTwoText = GameObject.Find("PlayerTwoScore").GetComponent<TextMeshProUGUI>();
-            _playerOneScore = 0;
-            _playerTwoScore = 0;
-            endGameUI = endGameUI ? endGameUI : GameObject.Find("EndGameText");
-            if(endGameUI != null) endGameUI.SetActive(false);
-
-
-            playerOne = GameObject.Find("Player 1");
-            SetController(playerOne, playerOneControl);
-            playerTwo = GameObject.Find("Player 2");
-            SetController(playerTwo, playerTwoControl);
-        }
-    }
-
     private void SetController(GameObject player, Controllers type) {
-        print($"Setting {player.name} to {type}");
+        Debug.Log($"Final game set up for {player.name} to enable controller {type}");
         player.GetComponent<PlayerController>().enabled = type == Controllers.HUMAN;
         player.GetComponent<ComputerController>().enabled = type == Controllers.CPU;
     }

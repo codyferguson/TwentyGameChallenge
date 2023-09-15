@@ -6,16 +6,20 @@ using UnityEngine.EventSystems;
 
 public class ScoringZone : MonoBehaviour
 {
-    public EventTrigger.TriggerEvent scoreTrigger; // remove this
-    UnityEvent testEvent;
+    public AudioClip sound;
+    UnityEvent scoreEvent;
 
     public void Start() {
         GameManager gameManager = GameManager.instance;
-        if (testEvent == null) {
-            testEvent = new UnityEvent();
+        SoundManager soundManager = SoundManager.instance;
+
+        if (scoreEvent == null) {
+            scoreEvent = new UnityEvent();
         }
 
-        testEvent.AddListener(gameManager.PlayerTwoScores);
+        // I don't like the hardcoded name but this is better than using Unity UI
+        scoreEvent.AddListener(gameObject.name == "Left Boundary" ?  gameManager.PlayerTwoScores : gameManager.PlayerOneScores);
+        scoreEvent.AddListener(() => soundManager.PlaySingle(sound));
     }
 
 
@@ -23,9 +27,7 @@ public class ScoringZone : MonoBehaviour
         BallController ball = collision.gameObject.GetComponent<BallController>();
 
         if (ball != null) {
-            BaseEventData eventData = new BaseEventData(EventSystem.current);
-            this.scoreTrigger.Invoke(eventData);
-            testEvent.Invoke();
+            scoreEvent.Invoke(); // Throws null on 3rd score with both as CPU
         }
     }
 }

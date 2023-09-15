@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class SoundManager : MonoBehaviour
 {
@@ -8,11 +7,11 @@ public class SoundManager : MonoBehaviour
     public AudioSource musicSource;
     public AudioSource gameBackgroundSource;
     public static SoundManager instance = null;
+    public AudioMixer mainMixer;
 
     public float lowPitchRange = 0.95f;
     public float highPitchRange = 1.05f;
 
-    // Start is called before the first frame update
     void Awake() {
         if (instance == null)
             instance = this;
@@ -22,6 +21,14 @@ public class SoundManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    public void AdjustVolume(float sliderValue) {
+        mainMixer.SetFloat("MasterVolume", sliderValue);
+    }
+
+    /// <summary>
+    /// This method gets referenced from various scripts by adding event listeners that when invoked, call this method
+    /// </summary>
+    /// <param name="clip"></param>
     public void PlaySingle(AudioClip clip) {
         efxSource.clip = clip;
         efxSource.Play();

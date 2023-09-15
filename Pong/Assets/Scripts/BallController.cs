@@ -11,7 +11,6 @@ public class BallController : MonoBehaviour
 
     Rigidbody2D rigidBody;
     Vector2 direction;
-    bool inMotion;
 
     private void Awake() {
         rigidBody = GetComponent<Rigidbody2D>();
@@ -19,8 +18,6 @@ public class BallController : MonoBehaviour
 
     void Start()
     {
-        // Used later for serving the ball
-        inMotion = false;
         StartCoroutine(ResetBall());
     }
 
@@ -32,13 +29,6 @@ public class BallController : MonoBehaviour
 
         // TODO: Set ball to be served by server instead
         AddStartingForce();
-    }
-
-    public void Update() {
-        if (Input.GetMouseButtonDown(0)) {
-            inMotion = true;
-            //movement = Camera.main.ScreenToWorldPoint(Input.mousePosition); -- use for launching ball
-        }
     }
 
     public void AddForce(Vector2 force) {

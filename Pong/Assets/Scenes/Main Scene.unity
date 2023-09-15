@@ -195,6 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bounceStrength: 5
+  hitSound: {fileID: 8300000, guid: 4cd409a336da6024391b9c03513f3b66, type: 3}
 --- !u!1 &210083552
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,21 +478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f01352db302df44cb13fcef73c83219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreTrigger:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1963988064}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: PlayerOneScores
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
+  sound: {fileID: 8300000, guid: 942f8c929b65cf842a60c7fa118bcc5c, type: 3}
 --- !u!1001 &500022494
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -588,7 +575,6 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
-  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -662,20 +648,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &519420033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28456ca47b710304c8456f7c1b2143c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameManager: {fileID: 7616822694156388784, guid: 05daa1f906d013347ad3ec2b00263360, type: 3}
-  soundManager: {fileID: 5621571478242234183, guid: 0a05fb7cb4adab44d8ba77ce17e5a30b, type: 3}
 --- !u!1001 &566594735
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -700,6 +672,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1747608416}
     - target: {fileID: 2769286952405108303, guid: 3e15176cab5097c4893e304d9f642654, type: 3}
+      propertyPath: hitSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 4cd409a336da6024391b9c03513f3b66, type: 3}
+    - target: {fileID: 2769286952405108303, guid: 3e15176cab5097c4893e304d9f642654, type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
@@ -708,8 +684,12 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3312273648318055798, guid: 3e15176cab5097c4893e304d9f642654, type: 3}
+      propertyPath: hitSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 7a492a1c47c6a26418290a797ac49b9b, type: 3}
+    - target: {fileID: 3312273648318055798, guid: 3e15176cab5097c4893e304d9f642654, type: 3}
       propertyPath: bounceStrength
-      value: 10
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 3518937239430638034, guid: 3e15176cab5097c4893e304d9f642654, type: 3}
       propertyPath: ball
@@ -1607,44 +1587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f01352db302df44cb13fcef73c83219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreTrigger:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1963988064}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: PlayerTwoScores
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &1963988064 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7616822694156388785, guid: 05daa1f906d013347ad3ec2b00263360, type: 3}
-  m_PrefabInstance: {fileID: 500022494}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7749539f95929a04794605bada969aaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  sound: {fileID: 8300000, guid: 942f8c929b65cf842a60c7fa118bcc5c, type: 3}
 --- !u!1 &2020685445
 GameObject:
   m_ObjectHideFlags: 0
@@ -1891,6 +1834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bounceStrength: 5
+  hitSound: {fileID: 8300000, guid: 4cd409a336da6024391b9c03513f3b66, type: 3}
 --- !u!1001 &2769286952405108301
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1910,6 +1854,10 @@ PrefabInstance:
       propertyPath: speed
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 2769286952405108303, guid: 3e15176cab5097c4893e304d9f642654, type: 3}
+      propertyPath: hitSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 4cd409a336da6024391b9c03513f3b66, type: 3}
     - target: {fileID: 3256109859075154783, guid: 3e15176cab5097c4893e304d9f642654, type: 3}
       propertyPath: m_Mass
       value: 1
@@ -1921,6 +1869,14 @@ PrefabInstance:
     - target: {fileID: 3256109859075154783, guid: 3e15176cab5097c4893e304d9f642654, type: 3}
       propertyPath: m_UseFullKinematicContacts
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3312273648318055798, guid: 3e15176cab5097c4893e304d9f642654, type: 3}
+      propertyPath: hitSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 7a492a1c47c6a26418290a797ac49b9b, type: 3}
+    - target: {fileID: 3312273648318055798, guid: 3e15176cab5097c4893e304d9f642654, type: 3}
+      propertyPath: bounceStrength
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 3518937239430638034, guid: 3e15176cab5097c4893e304d9f642654, type: 3}
       propertyPath: ball
