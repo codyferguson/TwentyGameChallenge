@@ -19,6 +19,7 @@ This could evolve into it's own game of Ye Ole Pong where everything looks like 
 ___Added______
 [] 3 levels of difficulty [just changes CPU paddle speed]
 [] A way to exit play to main menu or exit program
+[] Fix collision bug
 
 
 

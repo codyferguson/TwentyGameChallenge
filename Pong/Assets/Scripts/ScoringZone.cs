@@ -27,7 +27,7 @@ public class ScoringZone : MonoBehaviour
         BallController ball = collision.gameObject.GetComponent<BallController>();
 
         if (ball != null) {
-            scoreEvent.Invoke(); // Throws null on 3rd score with both as CPU
+            scoreEvent.Invoke();
         }
     }
 }
