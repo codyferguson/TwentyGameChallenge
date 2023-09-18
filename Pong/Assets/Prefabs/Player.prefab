@@ -71,6 +71,9 @@ GameObject:
   - component: {fileID: 2769286952405108303}
   - component: {fileID: 225233720769828924}
   - component: {fileID: 3256109859075154783}
+  - component: {fileID: 3312273648318055798}
+  - component: {fileID: 3518937239430638034}
+  - component: {fileID: 2587054240146859917}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -158,8 +161,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6462e922fd3510d4eae0fc8e08a563a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 4144697267124374017}
   speed: 20
+  player: {fileID: 4144697267124374017}
 --- !u!61 &225233720769828924
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -207,3 +210,44 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 5
+--- !u!114 &3312273648318055798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4144697267124374017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5169da74c1bc6f24db47f7bc14b1b615, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bounceStrength: 10
+--- !u!114 &3518937239430638034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4144697267124374017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1004d2ce7483ba543a766862cffdf238, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 60
+  ball: {fileID: 0}
+--- !u!114 &2587054240146859917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4144697267124374017}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1004d2ce7483ba543a766862cffdf238, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 60
+  ball: {fileID: 0}
