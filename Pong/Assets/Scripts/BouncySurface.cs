@@ -21,14 +21,13 @@ public class BouncySurface : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
+        Debug.Log($"{this.name} collided with {collision.collider.name}");
+        Vector2 normal = collision.GetContact(0).normal;
+        // Trying to avoid timing issue of reversing ball before it passes paddle
         BallController ball = collision.gameObject.GetComponent<BallController>();
-
         if (ball != null) {
-            Debug.Log($"{this.name} collided with {collision.collider.name}");
-            Vector2 normal = collision.GetContact(0).normal;
             ball.AddForce(-normal * this.bounceStrength);
             hitEvent.Invoke();
-            
         }
     }
 }
