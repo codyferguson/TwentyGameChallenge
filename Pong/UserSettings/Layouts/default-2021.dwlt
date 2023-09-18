@@ -581,18 +581,18 @@ MonoBehaviour:
       m_ExpandedIDs: dcc2feff22c3feff6ec3feff7ac3feff4ec4feff94c4feff28c6feff38c6feff88d6feffc0d7fefff2dafeffeedcfeff88e2feffbee2feff56e4feff62e4feff92effeff000bffffec0bffff320effff360fffff7e17ffff6818ffffc21bffffc41cfffffe1effff8420ffffe222ffffd027ffffd82affff5c2fffff2030ffff5830ffffee31fffffa31ffff7875ffff6a7affffa27cffff8a82fffffc84ffff5086ffff308affff6091ffff3297ffffaad9ffff24dcffffd2ddffff78deffff5ef3ffff38f9ffff2cfbfffff4ffffffcc7a00002a7b0000447b0000867b0000aa7b00003299000094990000ae990000f0990000149a000052d7000060ea0000deea00002aeb0000aceb000040260100f030010026390100303e01001250010082560100ce570100fa730100
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: 
-        m_OriginalName: 
+        m_Name: Sound Manager
+        m_OriginalName: Sound Manager
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 0
+        m_UserData: 24984
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 11
+        m_OriginalEventType: 0
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 8}
       m_SearchString: 
@@ -602,7 +602,7 @@ MonoBehaviour:
       m_IsLocked: 0
     m_CurrentSortingName: TransformSorting
   m_WindowGUID: 4c969a2b90040154d917609493e03593
---- !u!114 &15
+--- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -929,7 +929,7 @@ MonoBehaviour:
   m_SceneVisActive: 1
   m_LastLockedObject: {fileID: 0}
   m_ViewIsLockedToObject: 0
---- !u!114 &16
+--- !u!114 &15
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
