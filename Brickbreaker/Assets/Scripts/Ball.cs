@@ -7,9 +7,11 @@ public class Ball : MonoBehaviour
     [SerializeField] float speed = 100f;
     [SerializeField] int resetWaitSeconds = 1;
     [SerializeField] Vector2 startingPosition;
+    [SerializeField] float sqrMaxVelocity = 30f;
 
 
     Rigidbody2D rigidBody;
+
     Vector2 direction;
 
     private void Awake() {
@@ -31,11 +33,13 @@ public class Ball : MonoBehaviour
     }
 
     public void AddForce(Vector2 force) {
-        rigidBody.AddForce(force);
+        if (rigidBody.velocity.sqrMagnitude < sqrMaxVelocity) rigidBody.AddForce(force);
+        
+        //Debug.Log($"force is now {rigidBody.velocity.sqrMagnitude}");
+
     }
 
     private void AddStartingForce() {
-        // Random to go left or right
         //direction.x = Random.value < 0.5f ? -1.0f : 1.0f;
         direction.x = 0f;
         // needs to head up from player position
