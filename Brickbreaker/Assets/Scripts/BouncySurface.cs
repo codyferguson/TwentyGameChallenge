@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Tilemaps;
@@ -6,17 +7,20 @@ public class BouncySurface : MonoBehaviour
 {
     public float bounceStrength;
     public AudioClip hitSound;
+    public TMP_Text scoreText;
 
     UnityEvent hitEvent;
 
     public void Start() {
         //SoundManager soundManager = SoundManager.instance;
+        scoreText = GameObject.Find("Score").GetComponent<TMP_Text>();
 
         if (hitEvent == null) {
             hitEvent = new UnityEvent();
         }
 
         //hitEvent.AddListener(() => soundManager.PlaySingle(hitSound));
+        if (tag == "Brick") hitEvent.AddListener(() => UpdateScore());
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
@@ -86,5 +90,10 @@ public class BouncySurface : MonoBehaviour
         //Debug.Log($"send ball {direction}");
         ball.AddForce(direction * bounceStrength);
         hitEvent.Invoke();
+    }
+
+    private void UpdateScore() {
+        int newScore = int.Parse(scoreText.text) + 100;
+        scoreText.text = newScore.ToString();
     }
 }
