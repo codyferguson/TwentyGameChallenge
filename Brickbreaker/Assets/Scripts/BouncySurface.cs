@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.WindowsRuntime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -19,6 +20,7 @@ public class BouncySurface : MonoBehaviour
             hitEvent = new UnityEvent();
         }
 
+        // TODO: Add different hit sounds to different tags
         //hitEvent.AddListener(() => soundManager.PlaySingle(hitSound));
         if (tag == "Brick") hitEvent.AddListener(() => UpdateScore());
     }
@@ -26,15 +28,12 @@ public class BouncySurface : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision) {
         var xCor = collision.GetContact(0).point.x;
         var yCor = collision.GetContact(0).point.y;
-        //Debug.Log($"{collision.collider.name} collided with {tag} at {xCor} and {yCor}");
         
         Ball ball = collision.gameObject.GetComponent<Ball>();
 
         if (ball != null) {
-            // ball or paddle?
             switch (tag) {
                 case "Brick":
-                    //Debug.Log($"hit brick {name}");
                     HandleBallNewForce(ball, -collision.GetContact(0).normal);
                     Destroy(this.gameObject);
                     break;
@@ -42,9 +41,15 @@ public class BouncySurface : MonoBehaviour
                     PaddleController paddle = GetComponent<PaddleController>();
                     HandleBallNewForce(ball, paddle.DeterminePaddleRegion(xCor));
                     break;
-                default:
-                    // Most likely the game boundaries
+                case "Boundary":
+                    if (name == "BoundaryBottom") {
+                        StartCoroutine(ball.ResetBall());
+                        HandleLostBallEvent(ball);
+                    }
                     HandleBallNewForce(ball, -collision.GetContact(0).normal);
+                    break;
+                default:
+                    Debug.Log($"object not supported with tag {tag}");
                     break;
             }
         }
@@ -84,6 +89,21 @@ public class BouncySurface : MonoBehaviour
         }
 
         // TODO: Add points to player and speed up ball
+    }
+
+    private void HandleLostBallEvent(Ball ball) {
+        string nameToRemove = $"BallLife{ball.DecrementLife()}";
+
+        if (nameToRemove.Equals("BallLife0")) {
+            Debug.Log($"Would reset game");
+            return;
+        }
+
+        GameObject lifeToRemove = GameObject.Find(nameToRemove);
+
+        if (lifeToRemove != null) {
+            lifeToRemove.SetActive(false);
+        }
     }
 
     private void HandleBallNewForce(Ball ball, Vector2 direction) {

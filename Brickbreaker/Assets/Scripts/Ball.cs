@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
@@ -9,10 +8,10 @@ public class Ball : MonoBehaviour
     [SerializeField] Vector2 startingPosition;
     [SerializeField] float sqrMaxVelocity = 30f;
 
-
     Rigidbody2D rigidBody;
 
     Vector2 direction;
+    private int lifes = 3;
 
     private void Awake() {
         rigidBody = GetComponent<Rigidbody2D>();
@@ -29,14 +28,16 @@ public class Ball : MonoBehaviour
         yield return new WaitForSeconds(resetWaitSeconds);
 
         // TODO: Set ball to be served by server instead
-        AddStartingForce();
+        //AddStartingForce();
     }
 
     public void AddForce(Vector2 force) {
         if (rigidBody.velocity.sqrMagnitude < sqrMaxVelocity) rigidBody.AddForce(force);
-        
-        //Debug.Log($"force is now {rigidBody.velocity.sqrMagnitude}");
+    }
 
+    public int DecrementLife() {
+        // want to return "before" decrementing here
+        return lifes--;
     }
 
     private void AddStartingForce() {
