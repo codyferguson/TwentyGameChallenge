@@ -1,15 +1,29 @@
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.Events;
 
 public class PaddleController : MonoBehaviour
 {
+    public GameObject ballPrefab;
+
     [SerializeField] public float speed = 10.0f;
     protected Rigidbody2D _rigidBody;
     private Vector2 _direction;
 
+    UnityEvent ballResetEvent;
+    private GameObject ball;
+    private Ball ballController;
+    private bool isPaused = true;
+
     void Awake()
     {
         if (_rigidBody == null) _rigidBody = GetComponent<Rigidbody2D>();
+
+        if (ballResetEvent == null) {
+            ballResetEvent = new UnityEvent();
+        }
+
+        ball = Instantiate(ballPrefab, GetBallSpawnLocation(), Quaternion.identity);
+        ballController = ball.GetComponent<Ball>();
     }
 
     /// <summary>
@@ -21,18 +35,20 @@ public class PaddleController : MonoBehaviour
 
         float centerX = transform.position.x;
         float paddleLength = transform.localScale.x;
-        //Debug.Log($"center x pos is {centerX} and ball hit {xLocation} and scale x is {paddleLength}");
         
         float section = paddleLength / 6;
         float leftEdge = centerX - section;
         float rightEdge = centerX + section;
-        //Debug.Log($"center region goes from {leftEdge} to {rightEdge} and ball hit {xLocation}");
         bool hitLeftEdge = leftEdge > xLocation;
         bool hitRightEdge = rightEdge < xLocation;
-        //Debug.Log($"ball hit left? {hitLeftEdge} Ball hit right? {hitRightEdge}");
 
         Vector2 direction = hitLeftEdge ? new Vector2(-1, 1) : hitRightEdge ? new Vector2(1, 1) : new Vector2(0, 1);
         return direction.normalized;
+    }
+
+    public Vector3 GetBallSpawnLocation() {
+        Vector3 ballSpawnLocation = GameObject.Find("BallSpawnLocation").transform.localPosition;
+        return transform.TransformPoint(ballSpawnLocation);
     }
 
     private void Update() {
@@ -41,6 +57,10 @@ public class PaddleController : MonoBehaviour
         bool validRightKeys = Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D);
 
         _direction = validLeftKeys ? Vector2.left : validRightKeys ? Vector2.right : Vector2.zero;
+
+        if (Input.GetKey(KeyCode.Space)) {
+            ballController.LaunchBall();
+        }
     }
 
     private void FixedUpdate() {
@@ -48,7 +68,7 @@ public class PaddleController : MonoBehaviour
     }
 
     private void Move() {
-        if (_direction.sqrMagnitude != 0) {
+        if (_direction.sqrMagnitude != 0 && !isPaused) {
             _rigidBody.AddForce(_direction * speed);
         }
     }

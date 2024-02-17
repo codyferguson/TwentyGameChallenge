@@ -11,6 +11,8 @@ public class BouncySurface : MonoBehaviour
     public TMP_Text scoreText;
 
     UnityEvent hitEvent;
+    // Only used for paddle
+    public float maxBounceAngle = 75f;
 
     public void Start() {
         //SoundManager soundManager = SoundManager.instance;
@@ -20,6 +22,7 @@ public class BouncySurface : MonoBehaviour
             hitEvent = new UnityEvent();
         }
 
+
         // TODO: Add different hit sounds to different tags
         //hitEvent.AddListener(() => soundManager.PlaySingle(hitSound));
         if (tag == "Brick") hitEvent.AddListener(() => UpdateScore());
@@ -27,7 +30,6 @@ public class BouncySurface : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision) {
         var xCor = collision.GetContact(0).point.x;
-        var yCor = collision.GetContact(0).point.y;
         
         Ball ball = collision.gameObject.GetComponent<Ball>();
 
@@ -39,13 +41,10 @@ public class BouncySurface : MonoBehaviour
                     break;
                 case "Player":
                     PaddleController paddle = GetComponent<PaddleController>();
-                    HandleBallNewForce(ball, paddle.DeterminePaddleRegion(xCor));
+                    PlayerCollision(collision);
+                    //HandleBallNewForce(ball, paddle.DeterminePaddleRegion(xCor));
                     break;
                 case "Boundary":
-                    if (name == "BoundaryBottom") {
-                        StartCoroutine(ball.ResetBall());
-                        HandleLostBallEvent(ball);
-                    }
                     HandleBallNewForce(ball, -collision.GetContact(0).normal);
                     break;
                 default:
@@ -53,6 +52,33 @@ public class BouncySurface : MonoBehaviour
                     break;
             }
         }
+    }
+
+    // This was done in paddleController in tut. Maybe a better place
+    private void PlayerCollision(Collision2D collision) {
+        Rigidbody2D ball = collision.rigidbody;
+        Collider2D paddle = collision.otherCollider;
+
+        // Gather information about the collision
+        Vector2 ballDirection = ball.velocity.normalized;
+        Vector2 contactDistance = paddle.bounds.center - ball.transform.position;
+
+        // Rotate the direction of the ball based on the contact distance
+        // to make the gameplay more dynamic and interesting
+        float bounceAngle = (contactDistance.x / paddle.bounds.size.x) * maxBounceAngle;
+        ballDirection = Quaternion.AngleAxis(bounceAngle, Vector3.forward) * ballDirection;
+
+        // Re-apply the new direction to the ball
+        ball.velocity = ballDirection * ball.velocity.magnitude;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        Ball ball = collision.gameObject.GetComponent<Ball>();
+
+        // So far only done for bottom boundary
+        StartCoroutine(ball.ResetBall());
+
+        HandleLostBallEvent(ball);
     }
 
     /// <summary>
@@ -104,6 +130,8 @@ public class BouncySurface : MonoBehaviour
         if (lifeToRemove != null) {
             lifeToRemove.SetActive(false);
         }
+
+        //ball.gameObject.SetActive(false);
     }
 
     private void HandleBallNewForce(Ball ball, Vector2 direction) {
