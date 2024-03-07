@@ -1,6 +1,6 @@
 # Game #2
 
-Choose to make Breakout or Jetpack Joyride. I went with Breakout as I have tried to make this game before and I felt like it was a good project right after pong to build on those skills. 
+Choose to make Breakout or Jetpack Joyride. I went with Breakout as I have tried to make this game before and I felt like it was a good project right after pong to build on those skills.
 
 ## Tasks
 
@@ -27,3 +27,7 @@ Choose to make Breakout or Jetpack Joyride. I went with Breakout as I have tried
 ## Postmortem
 
 This game is not very fun to work on but I have to balance what I can achieve with what I want to make. Just grabbing some code did speed up the ball reflect on the paddle which was nice. It's nice to have these small, bite sized games to complete but man do they get boring to work on when they are this simple. I need to find a happy medium to keep the motivation to work on these. Maybe just move on to those bigger games that are more fun to make.
+
+I lost the passion on developing this just because I don't like brick breaker games. I think it is good to practice these "simple" game but I don't have the desire to polish them to a actual playable state. Menu's are boring to make too!
+
+Just called it a day with some sound and game play but no polish since this wasn't a fun game to make and I was loosing motivation.

@@ -19,8 +19,4 @@ public class ClickSound : MonoBehaviour
 
         button.onClick.AddListener(() => soundManager.PlaySingle(sound));
     }
-
-    public void PlaySound() {
-        ;
-    }
 }

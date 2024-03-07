@@ -51,6 +51,10 @@ public class PaddleController : MonoBehaviour
         return transform.TransformPoint(ballSpawnLocation);
     }
 
+    public void TogglePaddlePause(bool pausePaddle) {
+        isPaused = pausePaddle;
+    }
+
     private void Update() {
         // Get direction works for either player
         bool validLeftKeys = Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A);
@@ -58,7 +62,7 @@ public class PaddleController : MonoBehaviour
 
         _direction = validLeftKeys ? Vector2.left : validRightKeys ? Vector2.right : Vector2.zero;
 
-        if (Input.GetKey(KeyCode.Space)) {
+        if (!isPaused && Input.GetKey(KeyCode.Space)) {
             ballController.LaunchBall();
         }
     }

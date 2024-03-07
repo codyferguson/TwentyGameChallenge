@@ -7,16 +7,16 @@ Check here for ideas: https://www.retrogames.cz/index.php
 ## Plan for first 20 games built using Unity
 
 1. Pong - COMPLETED [Unity] (September 2023)
-2. Breakout - IN PROGRESS [Unity] (~~October~~ January 2024)
-3. Space Invaders [Unity] (January 2024)
-4. Chrome dinosaur game  [Unity] (February 2024)
+2. Breakout - IN PROGRESS [Unity] (~~October~~ March 2024)
+3. Space Invaders [Unity] (TBD)
+4. Chrome dinosaur game  [Unity] (TBD)
 5. Frogger [Unity] (February 2024)
 6. SpaceWar! [Unity] (March 2024)
 7. Asteroids [Unity] (March 2024)
 8. Pac Man [Unity] (TDB)
 9. Vampire Survivor [Unity] (TBD)
 10. Rogue [Unity] (TDB)
-11. Oregon Trail [Unity] (TBD)
+11. Oregon Trail [Unity] (October 2024) -- doing a release of this type
 12. Caravaneer [Unity] (TBD)
 13. Dragon Warrior - NES [Unity] (TDB)
 14. Super Mario Bros [Unity] (TDB)

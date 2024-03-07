@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices.WindowsRuntime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -15,16 +14,14 @@ public class BouncySurface : MonoBehaviour
     public float maxBounceAngle = 75f;
 
     public void Start() {
-        //SoundManager soundManager = SoundManager.instance;
+        SoundManager soundManager = SoundManager.instance;
         scoreText = GameObject.Find("Score").GetComponent<TMP_Text>();
 
         if (hitEvent == null) {
             hitEvent = new UnityEvent();
         }
 
-
-        // TODO: Add different hit sounds to different tags
-        //hitEvent.AddListener(() => soundManager.PlaySingle(hitSound));
+        hitEvent.AddListener(() => soundManager.PlaySingle(hitSound));
         if (tag == "Brick") hitEvent.AddListener(() => UpdateScore());
     }
 
@@ -81,6 +78,34 @@ public class BouncySurface : MonoBehaviour
         HandleLostBallEvent(ball);
     }
 
+    private void HandleLostBallEvent(Ball ball) {
+        string nameToRemove = $"BallLife{ball.DecrementLife()}";
+
+        if (nameToRemove.Equals("BallLife0")) {
+            Debug.Log($"Would reset game");
+            return;
+        }
+
+        GameObject lifeToRemove = GameObject.Find(nameToRemove);
+
+        if (lifeToRemove != null) {
+            lifeToRemove.SetActive(false);
+        }
+
+        //ball.gameObject.SetActive(false);
+    }
+
+    private void HandleBallNewForce(Ball ball, Vector2 direction) {
+        //Debug.Log($"send ball {direction}");
+        ball.AddForce(direction * bounceStrength);
+        hitEvent.Invoke();
+    }
+
+    private void UpdateScore() {
+        int newScore = int.Parse(scoreText.text) + 100;
+        scoreText.text = newScore.ToString();
+    }
+
     /// <summary>
     /// Old code that was trying to local cell in tile map from grid. It works for a normal tilemap but
     /// I had to change the size to make the bricks look like long rectangles which threw off finding the tile cell.
@@ -117,31 +142,5 @@ public class BouncySurface : MonoBehaviour
         // TODO: Add points to player and speed up ball
     }
 
-    private void HandleLostBallEvent(Ball ball) {
-        string nameToRemove = $"BallLife{ball.DecrementLife()}";
-
-        if (nameToRemove.Equals("BallLife0")) {
-            Debug.Log($"Would reset game");
-            return;
-        }
-
-        GameObject lifeToRemove = GameObject.Find(nameToRemove);
-
-        if (lifeToRemove != null) {
-            lifeToRemove.SetActive(false);
-        }
-
-        //ball.gameObject.SetActive(false);
-    }
-
-    private void HandleBallNewForce(Ball ball, Vector2 direction) {
-        //Debug.Log($"send ball {direction}");
-        ball.AddForce(direction * bounceStrength);
-        hitEvent.Invoke();
-    }
-
-    private void UpdateScore() {
-        int newScore = int.Parse(scoreText.text) + 100;
-        scoreText.text = newScore.ToString();
-    }
+    
 }

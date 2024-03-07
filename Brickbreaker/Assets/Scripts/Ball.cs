@@ -34,7 +34,7 @@ public class Ball : MonoBehaviour
             
         } else {
             if (rigidBody.velocity.sqrMagnitude < sqrMaxVelocity) {
-                Debug.Log($"Velocity is {rigidBody.velocity.magnitude} and max is {sqrMaxVelocity}");
+                //Debug.Log($"Velocity is {rigidBody.velocity.magnitude} and max is {sqrMaxVelocity}");
                 rigidBody.velocity = rigidBody.velocity * speed;
             }
         }
